@@ -51,6 +51,7 @@ public class TestRun {
 		Connection conn = null;		//DB의 연결정보를 보관할 객체
 		Statement stmt = null; 		//sql문 전달해서 실행 수 결과 받는 객체
 		
+		
 		//앞으로 실행할 sql문("완성형태"로 만들어두기) (맨 뒤에 세미몰론 없어야됨!!)
 		//String sql = "INSERT INTO TEST VALUES(1,'차은우',SYSDATE)";
 		String sql = "INSERT INTO TEST VALUES(" + num +", '" +name +"' ,SYSDATE)"; 
@@ -58,7 +59,7 @@ public class TestRun {
 		
 		try {
 			//1)jdbd driver 등록
-			Class.forName("oracle.jdbc.driver.OracleDriver"); //ojdbc6.jar파일을 추가안했을 경우 | 추가는 했는데 오타가 나서 클래스를 못차즌 경우
+			Class.forName("oracle.jdbc.driver.OracleDriver"); //ojdbc6.jar파일을 추가안했을 경우 | 추가는 했는데 오타가 나서 클래스를 못찾는 경우
 			System.out.println("jdbc driver 등록 성공");
 			
 			//OracleDriver 이건 자바에서 제공하는 클래스 아님..패키지 부터 보면 oracle로 시작함
@@ -67,6 +68,7 @@ public class TestRun {
 			
 			//2) Connection 객체 생성 : DB에 연결(url, 계정명, 비번)
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "JDBC", "JDBC");
+			
 			
 			//3) Statement 객체 생성
 			stmt = conn.createStatement();

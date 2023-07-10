@@ -89,11 +89,11 @@ public class MemberController {
 		}
 	}
 	
-	public void deleteMember(String Id) {
-		Member m = new Member(Id);
-		
-		int result = new MemberDao().deleteMember(m);
-		
-	}
+//	public void deleteMember(String Id) {
+//		Member m = new Member(Id);
+//		
+//		int result = new MemberDao().deleteMember(m);
+//		
+//	}
 	
 }

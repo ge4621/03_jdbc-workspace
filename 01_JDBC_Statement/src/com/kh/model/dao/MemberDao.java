@@ -245,7 +245,7 @@ public class MemberDao {
 			return m;
 		}
 	
-	public Member selectByUserName(String keyword) {
+	public Member selectByUserName(String username) {
 		
 		//필요한 변수 셋팅
 		Member m = null;
@@ -256,7 +256,7 @@ public class MemberDao {
 		ResultSet rset = null;
 		
 		//SELECT * FROM MEMBER WHERE USERNAME LIKE '%뫄%';
-		String sql = "SELECT * FROM MEMBER WHERE USERNAME LIKE '%"+ keyword +"%'";
+		String sql = "SELECT * FROM MEMBER WHERE USERNAME LIKE '%"+ username +"%'";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -267,7 +267,7 @@ public class MemberDao {
 			
 			rset = stmt.executeQuery(sql);
 			
-			if(keyword.contains(sql)) {
+			if(username.contains(sql)) {
 				m = new Member(rset.getInt("userno"),
 						rset.getString("userid"),
 						rset.getString("userpwd"),

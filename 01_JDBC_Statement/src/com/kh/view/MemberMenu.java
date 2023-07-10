@@ -48,7 +48,7 @@ public class MemberMenu {
 					mc.selectByUserName(username);
 					break;
 			case 5: break;
-			case 6: deleteMember(); break;
+			case 6: ; break;
 			case 0: System.out.println("이용해주셔서 감사합니다."); return;
 			case 9: break;
 			default : System.out.println("메뉴를 잘못입력하셨습니다. 다시 입력해주세요.");
@@ -112,13 +112,13 @@ public class MemberMenu {
 		return sc.nextLine();
 	}
 	
-	public void deleteMember() {
-		System.out.print("\n삭제할 회원 아이디 : ");
-		String Id = sc.nextLine();
-		
-		mc.deleteMember(Id);
-	}
-	
+//	public void deleteMember() {
+//		System.out.print("\n삭제할 회원 아이디 : ");
+//		String Id = sc.nextLine();
+//		
+//		mc.deleteMember(Id);
+//	}
+//	
 	
 	
 	

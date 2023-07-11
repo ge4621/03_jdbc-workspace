@@ -10,7 +10,7 @@ import com.kh.model.vo.Member;
 public class MemberMenu {
 		
 	//Scanner 객체 생성(전역으로 다 쓸수 있도록)
-	Scanner sc = new Scanner(System.in);
+	private Scanner sc = new Scanner(System.in);
 	
 	//MemberController 객체 생성(전역에서 바로 요청할 수 있게끔)
 	private MemberController mc = new MemberController();

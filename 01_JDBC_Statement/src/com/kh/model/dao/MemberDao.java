@@ -245,10 +245,16 @@ public class MemberDao {
 			return m;
 		}
 	
-	public Member selectByUserName(String username) {
+	/**
+	 * 사용자의 이름으로 키워드 검색 요청시 처리해주는 메소드
+	 * @param keyword
+	 * @return
+	 */
+	public ArrayList<Member> selectByUserName(String keyword) {
+		//SELECT문 수행(여러행) => ResultSet
+		//ArrayList로 짜야함
 		
-		//필요한 변수 셋팅
-		Member m = null;
+		ArrayList<Member> list = new ArrayList<Member>();
 		
 		//JDBC용 객체
 		Connection conn = null;
@@ -256,7 +262,7 @@ public class MemberDao {
 		ResultSet rset = null;
 		
 		//SELECT * FROM MEMBER WHERE USERNAME LIKE '%뫄%';
-		String sql = "SELECT * FROM MEMBER WHERE USERNAME LIKE '%"+ username +"%'";
+		String sql = "SELECT * FROM MEMBER WHERE USERNAME LIKE '%"+ keyword +"%'";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -267,18 +273,20 @@ public class MemberDao {
 			
 			rset = stmt.executeQuery(sql);
 			
-			if(username.contains(sql)) {
-				m = new Member(rset.getInt("userno"),
-						rset.getString("userid"),
-						rset.getString("userpwd"),
-						rset.getString("username"),
-						rset.getString("gender"),
-						rset.getInt("age"),
-						rset.getString("email"),
-						rset.getString("phone"),
-						rset.getString("address"),
-						rset.getString("hobby"),
-						rset.getDate("enrolldate"));
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("userno"),
+									rset.getString("userid"),
+									rset.getString("userpwd"),
+									rset.getString("username"),
+									rset.getString("gender"),
+									rset.getInt("age"),
+									rset.getString("email"),
+									rset.getString("phone"),
+									rset.getString("address"),
+									rset.getString("hobby"),
+									rset.getDate("enrolldate")
+									));
+			
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -297,18 +305,26 @@ public class MemberDao {
 				e.printStackTrace();
 			}
 		}
-		return m;
+		return list;
 	}
 	
-	public int deleteMember(String Id) {
+	/**
+	 * 사용자가 입력한 아이디의 회원정보를 삭제하는 메소드
+	 * @param userId2 :사용자가 입력한 아이디
+	 * @return result : 처리된 행수
+	 */
+	public int deleteMember(String userId2) {
+		//delete from member where userid = ???
+		//delete 문 => 처리된 행수(int) => 트랜젝션 처리
 		
 		int result = 0;
+		
 		Connection conn = null;
 		Statement stmt = null;
 		
 		
 		//DELETE FROM MEMBER WHERE USERID = 'USER03';
-		String sql = "DELETE FROM MEMBER WHERE USERID = '" + Id + "'";
+		String sql = "DELETE FROM MEMBER WHERE USERID = '" + userId2 + "'";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -343,6 +359,68 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	/**
+	 * 사용자가 입력한 아이디의 정보 변경 요청 처리해주는 메소드
+	 * @param m
+	 * @return result : 처리된 행수
+	 */
+	public int updateMember(Member m) {
+		//update문 (DML문) => 처리된 행수 (int) => 트랜젝션 처릭
+		
+		int result = 0;
+		
+		Connection conn = null;
+		Statement stmt = null;
+		
+		String sql = "UPDATE MEMBER "
+					+ "SET USERPWD =" + "'" + m.getUserPwd() + "' "
+					+ ", EMAIL = '" + m.getEmail() + "' "
+					+ ", PHONE = '" + m.getPhone() + "' "
+					+ ", ADDRESS = '" + m.getAddress() + "' "
+					+ "WHERE USERID = '" + m.getUserId() + "'";
+		
+		//System.out.println(sql); //sql일 잘 작성 되었는지 확인
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","JDBC","JDBC");
+			
+			conn.setAutoCommit(false); //오토커밋 제거
+			
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(sql);
+			
+			if(result > 0) {
+				conn.commit();
+			}else {
+				conn.rollback();
+			}
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return result;
+		
+	} 
+	
+	
+	
+	
 
 }
 		

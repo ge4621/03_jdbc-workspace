@@ -10,7 +10,7 @@ import com.kh.model.vo.Member;
 public class MemberMenu {
 		
 	//Scanner 객체 생성(전역으로 다 쓸수 있도록)
-	Scanner sc = new Scanner(System.in);
+	private Scanner sc = new Scanner(System.in);
 	
 	//MemberController 객체 생성(전역에서 바로 요청할 수 있게끔)
 	private MemberController mc = new MemberController();
@@ -137,6 +137,7 @@ public class MemberMenu {
 		System.out.print("회원정보 변경할 회원 아이디 입력 : ");
 		String userId = sc.nextLine();
 		*/
+		sc.nextLine();
 		
 		String userId = inputMemberId(); //위에서 사용한거 재활용 // 자료형이 String
 		System.out.print("변경할 암호 : ");
@@ -218,12 +219,12 @@ public class MemberMenu {
 	}
 	
 	
-//	public void deleteMember() {
-//		System.out.print("\n삭제할 회원 아이디 : ");
-//		String userId2 = sc.nextLine();
-//		
-//		mc.deleteMember(userId2);
-//	}
+	public void deleteMember() {
+		System.out.print("\n삭제할 회원 아이디 : ");
+		String userId2 = sc.nextLine();
+		
+		mc.deleteMember(userId2);
+	}
 	
 	
 }

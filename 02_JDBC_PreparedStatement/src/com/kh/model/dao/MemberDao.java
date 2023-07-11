@@ -343,7 +343,7 @@ public class MemberDao {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "JDBC", "JDBC");
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, m.getUserId());
+			pstmt.setString(1, userId2);
 			
 			result = pstmt.executeUpdate(); //여기서는 sql문을 전달하지 않고 그냥 실행해야됨!!이미 pstmt에 sql 들어가 있다.
 			
@@ -365,7 +365,7 @@ public class MemberDao {
 				e.printStackTrace();
 			}
 		}
-		
+		return result;
 	}
 	
 }

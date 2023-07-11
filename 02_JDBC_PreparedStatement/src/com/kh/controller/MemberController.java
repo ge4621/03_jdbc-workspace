@@ -95,12 +95,14 @@ public class MemberController {
 	 */
 	public void deleteMember(String userId2) {
 		
-		Member m = new MemberDao().selectByUserId(userId2);
+		int result = new MemberDao().deleteMember(userId2);
 		
-		if(m == null) {
-			new MemberMenu().displayNoDate(userId2 + "에 해당하는 검색결과 없습니다.");
+		
+				
+		if(result > 0) {
+			new MemberMenu().displaySuccess(userId2+"삭제되었습니다.");
 		}else {
-			new MemberMenu().displayMember(m);
+			new MemberMenu().displayFail("실패했습니다.");
 		}
 		
 		

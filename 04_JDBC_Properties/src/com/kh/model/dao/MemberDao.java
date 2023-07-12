@@ -1,5 +1,7 @@
 package com.kh.model.dao;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import static com.kh.common.JDBCTemplate.*;
 import com.kh.model.vo.Member;
@@ -16,27 +19,26 @@ import com.kh.model.vo.Member;
 public class MemberDao {
 	
 	/*
-	 * *Statement 와 PreparedStatment의 특징
-	 * - 둘 다 sql문 실행하고 결과를 받아내는 객체(둘 중 하나 쓰면 됨)
+	 * 기존의 방식 : Dao 클래스가 사용자가 요청할 때마다 실행해야되는 SQL문을 자바소스코드 내에 명시적으로 작성 => 정적코딩방식
 	 * 
-	 * - Statement 와 PreparedStatment의 차이점
-	 * - Statement 같은 경우 sql문을 바로 전달하면서 실행시키는 객체
-	 * 	(즉, sql문을 완성 형태로 만들어 둬야 한다.!! 사용자가 입력한 값이 다 채워진 형태로!)
+	 * >문제점 : SQL문을 수정해야 될 경우 자바소스코드를 수정해야됨 => 수정된 내용을 반영시키고자 한다면 프로그램을 재구동 해야됨
 	 * 
-	 * 			>기존의 Statement 방식
-	 * 			1) Connection 객체를 통해 Statement 객체 생성 : stmt = conn.createStatement();
-	 * 			2) Statement 객체를 통해 "완성된 sql문" 실행 및 결과 받기 결과= stmt.excuteXXX(완성된 SQL);
-	 * 
-	 * 	- PreparedStatement 같은 경우 "미완성된 sql문"을 잠시 보관해둘 수 있는 객체
-	 * 	(즉, 사용자가 입력한 값들을 채워두지않고 각각 들어갈 공간은 확보만 미리 해놓아도됩!)
-	 * 	단, 해당 sql문 본격적으로 실행하기 전에는 빈 공간을 사용자가 입력한 값을 채워서 실행하긴 해야됨
-	 * 	
-	 * 			>PreparedStatement 방식
-	 * 			1) Connection 객체를 통해 PreparedStatement 객체 생성 : pstmt = conn.preparedStatement([미완성된] sql문);
-	 * 			2) pstmt에 담기 sql문이 미완성 상태일 경우 우선 완성시켜야됨. pstmt.setXXX(1, '대체할 값');
-	 * 			3) 해당 완성된 sql문을 실행하고 결과 받기					:결과 = pstmt.executeXXX();
+	 * >해결방식 : SQL문들을 별도로 관리하는 외부파일(.xml)을 만들어서 실시간으로 그 파일에 기록된 sql문에 읽어들여서 실행 => 동적코딩방식
+	 * 			여러줄 쓸 수 있도록 => xml로 하는게 좋음!!
 	 * 
 	 */
+	
+	private Properties prop = new Properties();
+	
+	public MemberDao() {
+		try {
+			prop.loadFromXML(new FileInputStream("resources/query.xml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 	/**
 	 * 회원을 추가하는 메소드
@@ -50,7 +52,7 @@ public class MemberDao {
 		//conn 이미 서비스에서 생성되어 있음!!!
 		PreparedStatement pstmt = null;
 		
-		String sql = "INSERT INTO MEMBER VALUES(SEQ_USERNO.NEXTVAL,?,?,?,?,?,?,?,?,?,SYSDATE)";
+		String sql = prop.getProperty("insertMember");
 		
 		try {
 			//3) PreparedStatement 개체 생성
@@ -92,7 +94,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = "SELECT * FROM MEMBER";
+		String sql = prop.getProperty("selectList");
 		
 		try {
 			
@@ -137,7 +139,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = "SELECT * FROM MEMBER WHERE USERID = ?";
+		String sql = prop.getProperty("selectByUserId");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -185,7 +187,7 @@ public class MemberDao {
 		//String sql = "SELECT * FROM MEMBER WHERE USERNAME LIKE '%' || ? || '%'";  //하나의 문자열이 된다.
 		
 		//해결법2
-		String sql = "SELECT * FROM MEMBER WHERE USERNAME LIKE ?";  
+		String sql = prop.getProperty("selectByUserName");  
 		
 		
 		try {
@@ -231,7 +233,7 @@ public class MemberDao {
 		
 		PreparedStatement pstmt = null;
 		
-		String sql = "UPDATE MEMBER SET USERPWD = ?, EMAIL = ? , PHONE = ? , ADDRESS = ? WHERE USERID = ?";
+		String sql = prop.getProperty("updateMember");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -263,7 +265,7 @@ public class MemberDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = "DELETE FROM MEMBER WHERE USERID = ?";
+		String sql = prop.getProperty("deleteMember");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

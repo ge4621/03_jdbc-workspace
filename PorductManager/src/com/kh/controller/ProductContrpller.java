@@ -1,6 +1,10 @@
 package com.kh.controller;
 
+import java.util.ArrayList;
+
+import com.kh.model.service.ProductService;
 import com.kh.model.vo.Product;
+import com.kh.view.ProductMenu;
 
 public class ProductContrpller {
 	
@@ -19,9 +23,59 @@ public class ProductContrpller {
 		int result = new ProductService().insertProduct(pc);
 		
 		if(result > 0) {
-			//성공시 화면
+			new ProductMenu().displaySuccess("성공");
 		}else {
-			//실패시 화면
+			new ProductMenu().displayFail("실패");
+		}
+		
+	}
+	public void selectList() {
+		
+		ArrayList<Product> list = new ProductService().selectList();
+		
+		if(list.isEmpty()) {
+			new ProductMenu().displayNoDate("조회된 정보가 없습니다.");
+		}else {
+			new ProductMenu().displayProductList(list);
+		}
+	}
+	
+	public void selectByProductName(String keyword) {
+		ArrayList<Product> list = new ProductService().selectByProductName(keyword);
+		
+		if(list.isEmpty()) {
+			new ProductMenu().displayNoDate(keyword+"에 해당하는 상품이 없습니다.");
+		}else {
+			new ProductMenu().displayProductList(list);
+		}
+		
+	}
+	
+	public void deleteProdcut(String productId) {
+		int result = new ProductService().deleteProduct(productId);
+		
+		if(result > 0) {
+			new ProductMenu().displaySuccess(productId + "삭제완료");
+		}else {
+			new ProductMenu().displayFail("삭제 실패");
+		}
+	}
+	
+	public void updateProduct(String productId, String productName,String price,String dt,String  stock ) {
+		
+		Product pc = new Product();
+		pc.setProductId(productId);
+		pc.setProductName(productName);
+		pc.setPrice(0);
+		pc.setdescription(dt);
+		pc.setStock(0);
+		
+		int result = new ProductService().updateProduct(pc);
+		
+		if(result > 0) {
+			new ProductMenu().displaySuccess("상품정보 수정 성고");
+		}else {
+			new ProductMenu().displayFail("수정 실패");
 		}
 		
 	}

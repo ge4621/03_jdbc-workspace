@@ -1,8 +1,10 @@
 package com.kh.view;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.kh.controller.ProductContrpller;
+import com.kh.model.vo.Product;
 
 public class ProductMenu {
 		
@@ -24,11 +26,13 @@ public class ProductMenu {
 			int menu = sc.nextInt();
 			
 			switch(menu) {
-			case 1 : inputProduct(); break;
-			case 2 : break;
-			case 3 : break;
-			case 4 : break;
-			case 5 : break;
+			case 1 : pc.selectList(); break;
+			case 2 : inputProduct(); break;
+			case 3 : updateProduct(); break;
+			case 4 : pc. deleteProdcut(inputProductId());
+						break;
+			case 5 : pc.selectByProductName(inputProductName());
+				break;
 			case 0 : System.out.println("프로그램을 종료합니다."); return;
 			default : System.out.println("잘못입력하였습니다. 다시 입력해 주세요"); break;
 			}
@@ -39,6 +43,48 @@ public class ProductMenu {
 		
 		
 	}
+	
+	
+	public void updateProduct() {
+		System.out.println("\n==상품수정하기==");
+		
+		String productId = inputProductId();
+		
+		System.out.print("변경할 상품이름 : ");
+		String productName = sc.nextLine();
+		
+		System.out.print("변경할 상품 가격 : ");
+		String price = sc.nextLine();
+		
+		System.out.print("변경할 상품의 상세 정보 : ");
+		String dt = sc.nextLine();
+		
+		System.out.print("변경할 상훔의 재고 : ");
+		String stock = sc.nextLine();
+		
+		pc.updateProduct(productId, productName, price,dt, stock);
+	}
+	
+	public String inputProductId() {
+		System.out.print("상품 아이디 입력 : ");
+		return sc.nextLine();
+	}
+	
+	public String inputProductName() {
+		System.out.print("\n상품 이름 입력 (키워드) : ");
+		return sc.nextLine();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 상품 추가 창
+	 */
 	public void inputProduct() {
 		
 		System.out.println("\n==상품 추가 등록==");
@@ -60,6 +106,74 @@ public class ProductMenu {
 		pc.insertProduct(id,name,price,dt,stock);
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 서비스 요청 처리후 성공했을때 사용자가 보게될 화면
+	 * @param message
+	 */
+	public void displaySuccess(String message) {
+		System.out.println("\n서비스 요청 성공 : " + message);
+	}
+	
+	/**
+	 * 서비스 요청 처리후 실패 했을 때 사용자가 보게될 화면
+	 * @param message
+	 */
+	public void displayFail(String message) {
+		System.out.println("\n서비스 요청 실패 : " + message);
+	}
+	
+	/**
+	 * 조회 서비스 요청시 조회 결과가 없을 경우 사용자가 보게될 화면
+	 * @param message
+	 */
+	public void displayNoDate(String message) {
+		System.out.println(message + "\n");
+	}
+	
+	/**
+	 * 조회서비스 요청시 조회결과가 여러행일 경우 사용자가 보게될 화면
+	 * @param list
+	 */
+	public void displayProductList(ArrayList<Product> list) {
+		System.out.println("\n조회된 데이터는 다음과 같습니다.");
+		
+		for(Product pc : list) {
+			System.out.println(pc);
+		}
+	}
+	
+	/**
+	 * 조회 서비스 요청시 조회결과가 한행 일 경우 사용자가 보게 될 화면
+	 * @param pc
+	 */
+	public void displayProduct(Product pc) {
+		System.out.println("\n 조회된 정보는 다음과 같습니다.");
+		System.out.println(pc);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

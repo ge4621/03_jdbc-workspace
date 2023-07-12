@@ -5,17 +5,17 @@ public class Product {
 	private String productId;
 	private String productName;
 	private int price;
-	private String address;
+	private String description;
 	private int stock;
 	
 	public Product() {}
 
-	public Product(String productId, String productName, int price, String address, int stock) {
+	public Product(String productId, String productName, int price, String description, int stock) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.price = price;
-		this.address = address;
+		this.description = description;
 		this.stock = stock;
 	}
 
@@ -43,12 +43,12 @@ public class Product {
 		this.price = price;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getdescription() {
+		return description;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setdescription(String description) {
+		this.description = description;
 	}
 
 	public int getStock() {
@@ -61,8 +61,8 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", productName=" + productName + ", price=" + price + ", address="
-				+ address + ", stock=" + stock + "]";
+		return "Product [productId=" + productId + ", productName=" + productName + ", price=" + price + ", description="
+				+ description + ", stock=" + stock + "]";
 	}
 	
 	

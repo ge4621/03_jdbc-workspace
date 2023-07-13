@@ -52,11 +52,11 @@ public class ProductDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Product(rset.getString("productId"),
-									rset.getString("productName"),
-									rset.getInt("price"),
-									rset.getString("description"),
-									rset.getInt("stock")
+				list.add(new Product(rset.getString("PRODUCT_ID"),
+									rset.getString("P_NAME"),
+									rset.getInt("PRICE"),
+									rset.getString("DESCRIPTION"),
+									rset.getInt("STOCK")
 									));
 			}
 			

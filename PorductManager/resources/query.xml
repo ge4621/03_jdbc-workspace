@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+	<entry key = "insertMember">
+		INSERT 
+			INTO PRODUCT
+				(
+				 PRODUCT_ID
+				,P_NAME
+				,PRICE
+				,DESCRIPTION
+				,STOCK
+				)
+			VALUES
+				 (
+				  ?
+				 ,?
+				 ,?
+				 ,?
+				 ,?
+				 )
+	
+	</entry>
 
 </properties>

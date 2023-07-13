@@ -50,6 +50,8 @@ public class ProductMenu {
 		
 		String productId = inputProductId();
 		
+		sc.nextLine();
+		
 		System.out.print("변경할 상품이름 : ");
 		String productName = sc.nextLine();
 		
@@ -86,6 +88,8 @@ public class ProductMenu {
 	 * 상품 추가 창
 	 */
 	public void inputProduct() {
+		
+		sc.nextLine();
 		
 		System.out.println("\n==상품 추가 등록==");
 		System.out.print("상품 아이디 : ");

@@ -16,9 +16,9 @@ public class ProductContrpller {
 	 * @param dt :상세정보
 	 * @param stock :재고수량
 	 */
-	public void insertProduct(String id,String name,String price,String dt,String stock) {
+	public void insertProduct(String productId,String productName,String price,String dt,String stock) {
 		
-		Product pc = new Product(id,name,Integer.parseInt(price),dt,Integer.parseInt(stock));
+		Product pc = new Product(productId,productName,Integer.parseInt(price),dt,Integer.parseInt(stock));
 		
 		int result = new ProductService().insertProduct(pc);
 		
@@ -63,12 +63,12 @@ public class ProductContrpller {
 	
 	public void updateProduct(String productId, String productName,String price,String dt,String  stock ) {
 		
-		Product pc = new Product();
-		pc.setProductId(productId);
-		pc.setProductName(productName);
-		pc.setPrice(0);
-		pc.setdescription(dt);
-		pc.setStock(0);
+		Product pc = new Product(productId,productName,Integer.parseInt(price),dt,Integer.parseInt(stock));
+//		pc.setProductId(productId);
+//		pc.setProductName(productName);
+//		pc.setPrice(price);
+//		pc.setdescription(dt);
+//		pc.setStock(stock);
 		
 		int result = new ProductService().updateProduct(pc);
 		

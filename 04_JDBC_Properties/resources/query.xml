@@ -64,7 +64,7 @@
 	  	     , HOBBY
 	  	     , ENROLLDATE
 		  FROM MEMBER 
-	    MEMBER WHERE USERID = ?
+	     WHERE USERID = ?
 	</entry>
 
 	<entry key="selectByUserName">
@@ -81,7 +81,7 @@
 	  	     , HOBBY
 	  	     , ENROLLDATE
 		  FROM MEMBER 
-		 WHERE USERNAME LIKE ?
+		 WHERE USERNAME LIKE = ?
 	</entry>
 	
 	<entry key="updateMember">

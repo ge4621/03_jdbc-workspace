@@ -70,13 +70,17 @@ public class ProductContrpller {
 //		pc.setdescription(dt);
 //		pc.setStock(stock);
 		
+		
+		
 		int result = new ProductService().updateProduct(pc);
+		
 		
 		if(result > 0) {
 			new ProductMenu().displaySuccess("상품정보 수정 성고");
 		}else {
 			new ProductMenu().displayFail("수정 실패");
 		}
+		
 		
 	}
 	

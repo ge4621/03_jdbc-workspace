@@ -18,13 +18,15 @@ public class ProductMenu {
 			System.out.println("\n==상품 관련 프로그램==");
 			System.out.println("1.전체조회 하기");
 			System.out.println("2.상품 추가 하기");
-			System.out.println("3.상품 수정 하기(상품id로 조회하고 수정) : ");
-			System.out.println("4.상품 삭제 하기(상품id로 조회해서 삭제) : ");
-			System.out.println("5.상품 검색해기(상품이름으로 키워드 검색) : ");
+			System.out.println("3.상품 수정 하기(상품id로 조회하고 수정) ");
+			System.out.println("4.상품 삭제 하기(상품id로 조회해서 삭제) ");
+			System.out.println("5.상품 검색해기(상품이름으로 키워드 검색) ");
 			System.out.println("0.프로그램 종료하기");
 			
 			System.out.print(">>메뉴 선택 : ");
 			int menu = sc.nextInt();
+			
+			sc.nextLine();
 			
 			switch(menu) {
 			case 1 : pc.selectList(); break;
@@ -51,8 +53,6 @@ public class ProductMenu {
 		
 		String productId = inputProductId();
 		
-		sc.nextLine();
-		
 		System.out.print("변경할 상품이름 : ");
 		String productName = sc.nextLine();
 		
@@ -65,7 +65,7 @@ public class ProductMenu {
 		System.out.print("변경할 상훔의 재고 : ");
 		String stock = sc.nextLine();
 		
-		pc.updateProduct(productId, productName, price,dt, stock);
+		pc.updateProduct(productId, productName, price, dt, stock);
 	}
 	
 	public String inputProductId() {

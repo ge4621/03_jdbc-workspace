@@ -67,6 +67,16 @@ public class ProductService {
 		
 	}
 	
+	public Product selectByProductId(String productId) {
+		Connection conn = JDBCTemplate.getConnection();
+		Product pc = new ProductDao().selectByProductId(conn, productId);
+		
+		JDBCTemplate.close(conn);
+		
+		return pc;
+				
+		
+	}
 	
 	
 }

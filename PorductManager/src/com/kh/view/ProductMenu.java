@@ -90,7 +90,7 @@ public class ProductMenu {
 	 */
 	public void inputProduct() {
 		
-		sc.nextLine();
+		
 		
 		System.out.println("\n==상품 추가 등록==");
 		System.out.print("상품 아이디 : ");

@@ -10,7 +10,7 @@ public class PhoneMenu {
 	
 	private PhoneController pc = new PhoneController();
 	
-	
+	//run 하면 안됨 아직 다 안함 
 	public void mainMenu() {
 		
 		while(true) {

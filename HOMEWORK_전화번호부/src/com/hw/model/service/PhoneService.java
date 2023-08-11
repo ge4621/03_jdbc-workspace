@@ -11,6 +11,7 @@ public class PhoneService {
 	public int insertPhone(Phone p) {
 		
 		Connection conn = JDBCTemplate.getConnection();
+		
 		int result = new PhoneDao().insertPhone(conn,p);
 		
 		if(result > 0) {

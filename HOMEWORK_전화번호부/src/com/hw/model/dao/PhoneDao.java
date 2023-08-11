@@ -5,14 +5,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.hw.common.JDBCTemplate;
 import com.hw.model.vo.Phone;
 
 public class PhoneDao {
 	
-	public int insertPhone(Phone p) {
+	public int insertPhone(Connection conn, Phone p) {
 		
 		int result = 0;
-		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		String sql = "INSTER INTO PHONE VALUES(SEQ_NO.NEXTVAL,?,?,?,?)";
@@ -36,9 +36,11 @@ public class PhoneDao {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
 		}
 		
-	
+		return result;
 		
 		
 	}
